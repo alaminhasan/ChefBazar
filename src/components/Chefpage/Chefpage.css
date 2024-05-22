@@ -1,0 +1,15 @@
+.banner{
+   
+    text-align: left;
+    
+    display: flex;
+   
+}
+.banner img{
+    
+}
+.banner p{
+    text-align: left;
+    padding: 20px;
+    text-justify: inter-word;
+}
