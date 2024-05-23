@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import "./Register.css"
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
+    const [user, setUser] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
     const {createUser} = useContext(AuthContext)
@@ -16,22 +18,32 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const photo = form.name.value
     
     if(password<6){
         setError("passowrd length should be at least 6")
         return;
     }
-
+    //create user
     createUser(email, password)
     .then(result=>{
         const loggedUser = result.user;
+        setUser(loggedUser)
         setSuccess("user has been created successfully")
         form.reset()
+        updateProfile(user.createUser, {
+            displayName: name,
+            photoURL: photo
+        })
+        .then(console.log(user))
     })
     .catch(error=>{
         setError(error.message)
     })
 
+    //updateProfile
+    
+    
  }
 
     return (
